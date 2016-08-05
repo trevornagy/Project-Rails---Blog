@@ -7,4 +7,8 @@ module ArticlesHelper
 	def flasher(string)
 		flash.notice = "Article '#{@article.title}' #{string}!"
 	end
+
+	def article_IdParams
+		@article = Article.find(params[:id])
+	end
 end

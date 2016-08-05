@@ -6,7 +6,10 @@ class ArticlesController < ApplicationController
 	end
 
 	def show
-		@article = Article.find(params[:id])
+		article_IdParams
+
+		@comment = Comment.new
+		@comment.article_id = @article.id
 	end
 
 	def new
@@ -23,19 +26,18 @@ class ArticlesController < ApplicationController
 
 	def destroy
 		# Already declaring in show() method, so just pass that value through
-		show.destroy
+		article_IdParams.destroy
 		flasher "deleted"
 
 		redirect_to articles_path
 	end
 
 	def edit
-		show
-		flasher "edited"
+		article_IdParams
 	end
 
 	def update
-		show.update(article_params)
+		article_IdParams.update(article_params)
 
 		flasher "updated"
 
